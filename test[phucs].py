@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-
+#hoang khanh
 def line1(x1, y1, x2, y2):
     points = []
     

@@ -8,7 +8,7 @@ def line1(x1, y1, x2, y2):
         x1,y1=x2,y2
         x2,y2=x_swap,y_swap
     
-    print("Hai điểm được nhập vào là: " + str(x1) + "," + str(y1) + " và " + str(x2) + "," + str(y2))
+    print("Hai điểm được nhập vào: " + str(x1) + "," + str(y1) + " và " + str(x2) + "," + str(y2))
     
     Dx = abs(x2 - x1)
     Dy = abs(y2 - y1)

@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 #hoang khanh
 def line1(x1, y1, x2, y2):
-    points = []
     
     if(x1>x2):
         x_swap, y_swap=x1,y1
@@ -12,14 +11,18 @@ def line1(x1, y1, x2, y2):
     
     Dx = abs(x2 - x1)
     Dy = abs(y2 - y1)
-    
     d = -2*Dy+Dx
     D1 = -2*Dy + 2*Dx
     D2 = -2*Dy
-
+    
+    count0=0
+    count1=0
+    count2=0
+    count0_max=3
+    count1_max=1
+    count2_max=0
+    
     x, y = x1, y1
-
-    points.append((x, y))
 
     if (Dx>Dy):
         while x < x2:
@@ -33,9 +36,18 @@ def line1(x1, y1, x2, y2):
             else:
                 d += D2
             x+=1
-            plt.plot([X,x],[Y,y], linestyle='solid')
+            if count0!=count0_max:
+                plt.plot([X,x],[Y,y], linestyle='solid', color='c')
+                count0+=1
+            elif count1!=count1_max:
+                plt.plot([X,x],[Y,y], linestyle='none')
+                count1+=1
+            else:
+                count0=0
+                count1=0
     else:
         while y < y2:
+            X,Y=x,y
             if d < 0:
                 d += D1
                 if(x1>x2):
@@ -45,15 +57,19 @@ def line1(x1, y1, x2, y2):
             else:
                 d += D2
             y+=1
-            plt.plot([X,x],[Y,y], linestyle='solid')
-
-    points.append((x, y))
+            if count0!=count0_max:
+                plt.plot([X,x],[Y,y], linestyle='solid', color='c')
+                count0+=1
+            elif count1!=count1_max:
+                plt.plot([X,x],[Y,y], linestyle='none')
+                count1+=1
+            else:
+                count0=0
+                count1=0
+                
+    plt.plot(x1,y1, marker='o', color='c')
+    plt.plot(x2,y2, marker='o',color='c')
     
-    x_values, y_values = zip(*points)
-    plt.plot(x_values, y_values, linestyle='--', marker='o')
-
-    plt.show()
-
 def axis(ax, x1, y1, x2, y2):
     line = []
 
@@ -122,8 +138,8 @@ plt.title('Hệ tọa độ 2D')
 
 
 def get_user_input():
-    x1, y1 = 110 , 0
-    x2, y2 = 50, 50
+    x1, y1 = 0 , 0
+    x2, y2 = 100, 100
     return x1, y1, x2, y2
 # Get user input
 user_input = get_user_input()

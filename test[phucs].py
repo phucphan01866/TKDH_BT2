@@ -33,6 +33,7 @@ def line1(x1, y1, x2, y2):
             else:
                 d += D2
             x+=1
+            plt.plot([X,x],[Y,y], linestyle='solid')
     else:
         while y < y2:
             if d < 0:
@@ -44,7 +45,7 @@ def line1(x1, y1, x2, y2):
             else:
                 d += D2
             y+=1
-            plt.plot(x_values, y_values, linestyle='--', marker='o')
+            plt.plot([X,x],[Y,y], linestyle='solid')
 
     points.append((x, y))
     

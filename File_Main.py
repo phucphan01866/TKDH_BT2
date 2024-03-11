@@ -109,13 +109,12 @@ def draw_line_3(x,y,x1,y1,x2,y2,Dx,Dy,D1,D2,d):
                 count2=0
 
 
-def draw_line_1(x1,y1,x2,y2,Dx,Dy,D1,D2,d):
+def draw_line_1(x1,y1,x2,y2):
     x,y=x1,y1
-    print("Hai điểm được nhập vào là: " + str(x1) + "," + str(y1) + " và " + str(x2) + "," + str(y2))
+    Dx = x2 - x1
+    Dy = y2 - y1
     
     if (Dx>Dy):
-        Dx = x2 - x1
-        Dy = y2 - y1
         d  = 2*Dy -   Dx
         D1 = 2*Dy - 2*Dx 
         D2 = 2*Dy
@@ -125,22 +124,19 @@ def draw_line_1(x1,y1,x2,y2,Dx,Dy,D1,D2,d):
                 d += D1
                 if(y1>y2):
                     y-=1
-                else:
+                else:   
                     y+=1
             else:
                 d += D2
             x+=1
             plt.plot([X,x],[Y,y], linestyle='solid', color='c')
     else:
-        Dx = x2 - x1
-        Dy = y2 - y1
         d  = 2*Dx -   Dy
         D1 = 2*Dx - 2*Dy 
         D2 = 2*Dx
-        while y < y2:
-            
+        while y < y2:           
             X,Y=x,y
-            if d < 0:
+            if d < 0:   
                 d += D2               
             else:
                 d += D1
@@ -152,25 +148,12 @@ def draw_line_1(x1,y1,x2,y2,Dx,Dy,D1,D2,d):
             plt.plot([X,x],[Y,y], linestyle='solid', color='c')
 
 def line1(x1, y1, x2, y2):
-    
     if(x1>x2):
         x_swap, y_swap=x1,y1
         x1,y1=x2,y2
         x2,y2=x_swap,y_swap
-    
-    Dx = x2 - x1
-    Dy = y2 - y1
-    d  = 2*Dy -   Dx
-    D1 = 2*Dy - 2*Dx 
-    D2 = 2*Dy
 
-    print("D:" +str(D1))
-    print("D:" +str(D2))
-    print("D:" +str(d))
-
-
-    draw_line_1(x1,y1,x2,y2,Dx,Dy,D1,D2,d)
-                
+    draw_line_1(x1,y1,x2,y2)              
     plt.plot(x1,y1, marker='o', color='c')
     plt.plot(x2,y2, marker='o',color='c')
     

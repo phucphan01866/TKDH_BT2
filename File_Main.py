@@ -114,6 +114,11 @@ def draw_line_1(x1,y1,x2,y2,Dx,Dy,D1,D2,d):
     print("Hai điểm được nhập vào là: " + str(x1) + "," + str(y1) + " và " + str(x2) + "," + str(y2))
     
     if (Dx>Dy):
+        Dx = x2 - x1
+        Dy = y2 - y1
+        d  = 2*Dy -   Dx
+        D1 = 2*Dy - 2*Dx 
+        D2 = 2*Dy
         print("case1")
         while x < x2:
             X,Y=x,y
@@ -129,6 +134,11 @@ def draw_line_1(x1,y1,x2,y2,Dx,Dy,D1,D2,d):
             plt.plot([X,x],[Y,y], linestyle='solid', color='c')
     else:
         print("case2")
+        Dx = x2 - x1
+        Dy = y2 - y1
+        d  = 2*Dx -   Dy
+        D1 = 2*Dx - 2*Dy 
+        D2 = 2*Dx
         while y < y2:
             
             X,Y=x,y
@@ -236,7 +246,7 @@ plt.title('Hệ tọa độ 2D')
 
 def get_user_input():
     x1, y1 = 0 , 0
-    x2, y2 = 100, 50
+    x2, y2 = 100, 200
     return x1, y1, x2, y2
 # Get user input
 user_input = get_user_input()

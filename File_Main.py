@@ -5,17 +5,25 @@ import matplotlib.pyplot as plt
 
                 
                 
-def draw_line_2(x,y,x1,y1,x2,y2,Dx,Dy,D1,D2,d):
+def draw_line_2(x1,y1,x2,y2):
+    x,y=x1,y1
+    Dx = x2 - x1
+    Dy = y2 - y1
+    
     count0, count1 = 0 , 0
     count0_max, count1_max= 3 , 1
+    
     if (Dx>Dy):
+        d  = 2*Dy -   Dx
+        D1 = 2*Dy - 2*Dx 
+        D2 = 2*Dy
         while x < x2:
             X,Y=x,y
-            if d < 0:
+            if d > 0:
                 d += D1
                 if(y1>y2):
                     y-=1
-                else:
+                else:   
                     y+=1
             else:
                 d += D2
@@ -29,17 +37,21 @@ def draw_line_2(x,y,x1,y1,x2,y2,Dx,Dy,D1,D2,d):
             else:
                 count0=0
                 count1=0
+
     else:
-        while y < y2:
+        d  = 2*Dx -   Dy
+        D1 = 2*Dx - 2*Dy 
+        D2 = 2*Dx
+        while y < y2:           
             X,Y=x,y
-            if d < 0:
+            if d < 0:   
+                d += D2               
+            else:
                 d += D1
                 if(x1>x2):
                     x-=1
                 else:
                     x+=1
-            else:
-                d += D2
             y+=1
             if count0!=count0_max:
                 plt.plot([X,x],[Y,y], linestyle='solid', color='c')
@@ -51,18 +63,25 @@ def draw_line_2(x,y,x1,y1,x2,y2,Dx,Dy,D1,D2,d):
                 count0=0
                 count1=0
 
-def draw_line_3(x,y,x1,y1,x2,y2,Dx,Dy,D1,D2,d):
+def draw_line_3(x1,y1,x2,y2):
+    x,y=x1,y1
+    Dx = x2 - x1
+    Dy = y2 - y1
+    
     count0, count1, count2 = 0 , 0 , 0
-    count0_max, count1_max, count2_max= 3 , 1 , 1
+    count0_max, count1_max, count2_max= 7 , 2 , 4
     
     if (Dx>Dy):
+        d  = 2*Dy -   Dx
+        D1 = 2*Dy - 2*Dx 
+        D2 = 2*Dy
         while x < x2:
             X,Y=x,y
-            if d < 0:
+            if d > 0:
                 d += D1
                 if(y1>y2):
                     y-=1
-                else:
+                else:   
                     y+=1
             else:
                 d += D2
@@ -82,16 +101,19 @@ def draw_line_3(x,y,x1,y1,x2,y2,Dx,Dy,D1,D2,d):
                 count1=0
                 count2=0
     else:
-        while y < y2:
+        d  = 2*Dx -   Dy
+        D1 = 2*Dx - 2*Dy 
+        D2 = 2*Dx
+        while y < y2:           
             X,Y=x,y
-            if d < 0:
+            if d < 0:   
+                d += D2               
+            else:
                 d += D1
                 if(x1>x2):
                     x-=1
                 else:
                     x+=1
-            else:
-                d += D2
             y+=1
             if count0!=count0_max:
                 plt.plot([X,x],[Y,y], linestyle='solid', color='c')
@@ -109,6 +131,7 @@ def draw_line_3(x,y,x1,y1,x2,y2,Dx,Dy,D1,D2,d):
                 count2=0
 
 
+#Vẽ nét đứt
 def draw_line_1(x1,y1,x2,y2):
     x,y=x1,y1
     Dx = x2 - x1
@@ -153,7 +176,7 @@ def line1(x1, y1, x2, y2):
         x1,y1=x2,y2
         x2,y2=x_swap,y_swap
 
-    draw_line_1(x1,y1,x2,y2)              
+    draw_line_3(x1,y1,x2,y2)              
     plt.plot(x1,y1, marker='o', color='c')
     plt.plot(x2,y2, marker='o',color='c')
     

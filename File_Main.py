@@ -119,7 +119,6 @@ def draw_line_1(x1,y1,x2,y2,Dx,Dy,D1,D2,d):
         d  = 2*Dy -   Dx
         D1 = 2*Dy - 2*Dx 
         D2 = 2*Dy
-        print("case1")
         while x < x2:
             X,Y=x,y
             if d > 0:
@@ -133,7 +132,6 @@ def draw_line_1(x1,y1,x2,y2,Dx,Dy,D1,D2,d):
             x+=1
             plt.plot([X,x],[Y,y], linestyle='solid', color='c')
     else:
-        print("case2")
         Dx = x2 - x1
         Dy = y2 - y1
         d  = 2*Dx -   Dy
@@ -143,7 +141,6 @@ def draw_line_1(x1,y1,x2,y2,Dx,Dy,D1,D2,d):
             
             X,Y=x,y
             if d < 0:
-                print("yes")
                 d += D2               
             else:
                 d += D1
@@ -250,8 +247,6 @@ def get_user_input():
     return x1, y1, x2, y2
 # Get user input
 user_input = get_user_input()
-
-#plt.plot([100,40], [0,50], linestyle='solid', marker='none')
 
 axis(ax, int(-1.3*(max(user_input[0],user_input[2]))), 0, int(1.3*(max(user_input[0],user_input[2]))), 0)  # Trục X
 axis(ax, 0, int(-1.3*(max(user_input[1],user_input[3]))), 0, int(1.3*(max(user_input[1],user_input[3]))))  # Trục Y

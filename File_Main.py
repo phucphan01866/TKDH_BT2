@@ -2,193 +2,134 @@ import matplotlib.pyplot as plt
 #hoang khanh
 #thienphuc
 
-def draw_1_cham_gach(x1,y1,x2,y2):
-
-    Dx = x2 - x1
-    Dy = y2 - y1
-    
-    count0, count1, count2 = 0 , 0 , 0
-    count0_max, count1_max, count2_max= 7 , 3 , 1
-    if (abs(Dx)>abs(Dy)):
-        
-        if(x1>x2):
-            x_swap, y_swap=x1,y1
-            x1,y1=x2,y2
-            x2,y2=x_swap,y_swap
-            Dx, Dy = -1*Dx, -1*Dy     
-    
-        x,y= x1 , y1
-
-        d  = 2*Dy -   Dx
-        D1 = 2*Dy - 2*Dx 
-        D2 = 2*Dy
-                    
-        while x < x2:
-            X,Y=x,y
-            if d > 0:
-                d += D1
-                if(y1>y2):
-                    y-=1
-                else:   
-                    y+=1
-            else:
-                d += D2
-            if x1<x2:
-                x+=1
-            else:
-                x-=1
-            if count0!=count0_max:
-                plt.plot([X,x],[Y,y], linestyle='solid', color='c')
-                count0+=1
-            elif count1!=count1_max:
-                plt.plot([X,x],[Y,y], linestyle='none')
-                count1+=1
-            elif count2!=count2_max:
-                plt.plot([X,x],[Y,y], linestyle='solid', color='c')
-                count2+=1
-                if count2==count2_max:
-                    count1=0
-            else:
-                count0=0
-                count1=0
-                count2=0
-    else:
-
-        if(y1>y2):
-            x_swap, y_swap=x1,y1
-            x1,y1=x2,y2
-            x2,y2=x_swap,y_swap
-            Dx, Dy = -1*Dx, -1*Dy     
-
-        x,y= x1 , y1
-        
-        d  = 2*Dx -   Dy
-        D1 = 2*Dx - 2*Dy 
-        D2 = 2*Dx
-        while y < y2:      
-            print(D1,D2,d)     
-            X,Y=x,y
-            if d < 0:   
-                d += D2               
-            else:
-                d += D1
-                if(x1>x2):
-                    x-=1
-                else:
-                    x+=1
-            y=y+1
-            
-            if count0!=count0_max:
-                plt.plot([X,x],[Y,y], linestyle='solid', color='c')
-                count0+=1
-            elif count1!=count1_max:
-                plt.plot([X,x],[Y,y], linestyle='none')
-                count1+=1
-            elif count2!=count2_max:
-                plt.plot([X,x],[Y,y], linestyle='solid', color='b')
-                count2+=1
-            if count2 == count2_max:
-                count1=0
-            else:
-                count0=0
-                count1=0
-                count2=0
-
 #Vẽ nét đứt
+def draw_net_dut(count0, count1, count0_max, count1_max, X, Y, x, y):
+    if count0!=count0_max:
+       plt.plot([X,x],[Y,y], linestyle='solid', color='c')
+       count0+=1
+    elif count1!=count1_max:
+        plt.plot([X,x],[Y,y], linestyle='none')
+        count1+=1
+    else:
+        count0=0
+        count1=0
+    return count0, count1
 
-def draw_2_cham_gach(x1,y1,x2,y2):
+#Vẽ nét gạch 1 chấm
+def draw_1_cham_gach(count0, count1, count2, count0_max, count1_max, count2_max, X, Y, x, y):
+    if count0!=count0_max:
+        plt.plot([X,x],[Y,y], linestyle='solid', color='c')
+        count0+=1
+    elif count1!=count1_max:
+        plt.plot([X,x],[Y,y], linestyle='none')
+        count1+=1
+    elif count2!=count2_max:
+        plt.plot([X,x],[Y,y], linestyle='solid', color='c')
+        count2+=1
+        if count2==count2_max:
+            count1=0
+    else:
+        count0=0
+        count1=0
+        count2=0
+    return count0, count1, count2
+
+#Vẽ nét gạch 2 chấm
+def draw_2_cham_gach(count0, count1, count2, count3, count0_max, count1_max, count2_max, count3_max, X, Y, x, y):
+    if count0!=count0_max:
+        plt.plot([X,x],[Y,y], linestyle='solid', color='c')
+        count0+=1
+    elif count1!=count1_max:
+        plt.plot([X,x],[Y,y], linestyle='none')
+        count1+=1
+    elif count2!=count2_max:
+        plt.plot([X,x],[Y,y], linestyle='solid', color='c')
+        count2+=1
+        if count3==count3_max and count2==count2_max:
+            count1=0
+    elif count3!=count3_max:
+        plt.plot([X,x],[Y,y], linestyle='none')
+        count3+=1
+        if count3==count3_max:
+            count2=0
+    else:
+        count0=0
+        count1=0
+        count2=0
+        count3=0
+    return count0, count1, count2, count3
+
+#Hàm chính, nhập các giá trị độ dài tại đây (từ tọa độ 2 điểm ban đầu), tính toán vị trí để putpixel
+def draw(x1,y1,x2,y2,choice):
+    
+    #Chấm 2 chấm tại điểm đầu và cuối
+    plt.plot(x1,y1, marker='o', color='r')
+    plt.plot(x2,y2, marker='o',color='b')
+    
+    Dx = abs(x2 - x1)
+    Dy = abs(y2 - y1)
+    
+    if choice==1:
+        count0, count1 = 0 , 0
+        count0_max, count1_max= 3 , 1 
+    elif choice==2:
+        count0, count1, count2 = 0 , 0 , 0
+        count0_max, count1_max, count2_max= 7 , 3 , 1
+    elif choice==3:
+        count0, count1, count2, count3 = 0, 0, 0, 0
+        count0_max, count1_max, count2_max, count3_max= 7 , 4 , 1, 2
+    
+    
+    if(y1<y2):
+        y_change=+1
+    else:
+        y_change=-1
+    if(x1<x2):
+        x_change=1
+    else:
+        x_change=-1
+    
     x,y=x1,y1
-    Dx = x2 - x1
-    Dy = y2 - y1
-    
-    #____---__--__---____
-    count0, count1, count2, count3 = 0, 0, 0, 0
-    count0_max, count1_max, count2_max, count3_max= 7 , 4 , 1, 2
-    
     if (Dx>Dy):
         d  = 2*Dy -   Dx
-        D1 = 2*Dy - 2*Dx 
+        D1 = 2*Dy - 2*Dx
         D2 = 2*Dy
-        while x < x2:
+            
+        while x != x2:
             X,Y=x,y
             if d > 0:
                 d += D1
-                if(y1>y2):
-                    y-=1
-                else:   
-                    y+=1
+                y+=y_change
             else:
-                d += D2
-            x+=1
-            if count0!=count0_max:
-                plt.plot([X,x],[Y,y], linestyle='solid', color='c')
-                count0+=1
-            elif count1!=count1_max:
-                plt.plot([X,x],[Y,y], linestyle='none')
-                count1+=1
-            elif count2!=count2_max:
-                plt.plot([X,x],[Y,y], linestyle='solid', color='c')
-                count2+=1
-                if count3==count3_max and count2==count2_max:
-                    count1=0
-            elif count3!=count3_max:
-                plt.plot([X,x],[Y,y], linestyle='none')
-                count3+=1
-                if count3==count3_max:
-                    count2=0
-            else:
-                count0=0
-                count1=0
-                count2=0
-                count3=0
+               d += D2
+            x+=x_change
+            if choice==1:
+                count0, count1 = draw_net_dut(count0, count1,count0_max, count1_max, X, Y, x, y)
+            elif choice==2:
+                count0, count1 = draw_1_cham_gach(count0, count1, count2, count0_max, count1_max, count2_max, X, Y, x, y)
+            elif choice==3:
+                count0, count1 = draw_2_cham_gach(count0, count1, count2, count3, count0_max, count1_max, count2_max, count3_max, X, Y, x, y)
+            
     else:
         d  = 2*Dx -   Dy
-        D1 = 2*Dx - 2*Dy 
+        D1 = 2*Dx - 2*Dy
         D2 = 2*Dx
-        while y < y2:           
+        
+        while y!=y2:
             X,Y=x,y
-            if d < 0:   
-                d += D2               
-            else:
+            if d > 0:
                 d += D1
-                if(x1>x2):
-                    x-=1
-                else:
-                    x+=1
-            y+=1
-            if count0!=count0_max:
-                plt.plot([X,x],[Y,y], linestyle='solid', color='c')
-                count0+=1
-            elif count1!=count1_max:
-                plt.plot([X,x],[Y,y], linestyle='none')
-                count1+=1
-            elif count2!=count2_max:
-                plt.plot([X,x],[Y,y], linestyle='solid', color='c')
-                count2+=1
-                if count3==count3_max and count2==count2_max:
-                    count1=0
-            elif count3!=count3_max:
-                plt.plot([X,x],[Y,y], linestyle='none')
-                count3+=1
-                if count3==count3_max:
-                    count2=0
+                x+=x_change
             else:
-                count0=0
-                count1=0
-                count2=0
-
-def line1(x1, y1, x2, y2, choice):
-    
-    print(x1,y1,x2,y2,abs(x1-x2),abs(y1-y2))
-
-    if choice == 1:
-        draw_net_dut(x1,y1,x2,y2)
-    elif choice == 2:
-        draw_1_cham_gach(x1,y1,x2,y2)
-    elif choice == 3:
-        draw_2_cham_gach(x1,y1,x2,y2)          
-    plt.plot(x1,y1, marker='o', color='c')
-    plt.plot(x2,y2, marker='o',color='c')
+                d+= D2
+            y+=y_change
+            if choice==1:
+                count0, count1 = draw_net_dut(count0, count1,count0_max, count1_max, X, Y, x, y)
+            elif choice==2:
+                count0, count1, count2 = draw_1_cham_gach(count0, count1, count2, count0_max, count1_max, count2_max, X, Y, x, y)
+            elif choice==3:
+                count0, count1, count2, count3 = draw_2_cham_gach(count0, count1, count2, count3, count0_max, count1_max, count2_max, count3_max, X, Y, x, y)
+                
     
 def axis(ax, x1, y1, x2, y2):
     line = []
@@ -248,7 +189,6 @@ def axis(ax, x1, y1, x2, y2):
 # Thiết lập kích thước của hình vẽ
 fig, ax = plt.subplots(figsize=(10, 10))
 
-
 # Vẽ lưới
 ax.grid(True, linestyle='--', alpha=0.7)
 
@@ -257,68 +197,9 @@ plt.grid(True)
 plt.title('Hệ tọa độ 2D')
 
 
-def draw_net_dut(x1,y1,x2,y2):
-    x,y=x1,y1
-    Dx = x2 - x1
-    Dy = y2 - y1
-    
-    count0, count1 = 0 , 0
-    count0_max, count1_max= 3 , 1
-    
-    if (Dx>Dy):
-        d  = 1*(2*Dy -   Dx)
-        D1 = 1*(2*Dy - 2*Dx) 
-        D2 = 2*Dy
-        while x < x2:
-            X,Y=x,y
-            if d > 0:
-                d += D1
-                if(y1>y2):
-                    y-=1
-                else:   
-                    y+=1
-            else:
-                d += D2
-            x+=1
-            if count0!=count0_max:
-                plt.plot([X,x],[Y,y], linestyle='solid', color='c')
-                count0+=1
-            elif count1!=count1_max:
-                plt.plot([X,x],[Y,y], linestyle='none')
-                count1+=1
-            else:
-                count0=0
-                count1=0
-
-    else:
-        d  = 2*Dx -   Dy
-        D1 = 2*Dx - 2*Dy 
-        D2 = 2*Dx
-        while y < y2:           
-            X,Y=x,y
-            if d < 0:   
-                d += D2               
-            else:
-                d += D1
-                if(x1>x2):
-                    x-=1
-                else:
-                    x+=1
-            y+=1
-            if count0!=count0_max:
-                plt.plot([X,x],[Y,y], linestyle='solid', color='c')
-                count0+=1
-            elif count1!=count1_max:
-                plt.plot([X,x],[Y,y], linestyle='none')
-                count1+=1
-            else:
-                count0=0
-                count1=0
-
-
 def get_user_input():
-    x1, y1 = 100, 200
-    x2, y2 = 150, 170
+    x1, y1 = 50, 10
+    x2, y2 = 50, 70
     return x1, y1, x2, y2
 # Get user input
 user_input = get_user_input()
@@ -329,6 +210,6 @@ axis_y_max, axis_y_min=min(-10,int(-1.3*axis_y)), max(10,int(1.3*axis_y))
 axis(ax, axis_x_min, 0, axis_x_max, 0)  # Trục X
 axis(ax, 0, axis_y_min, 0, axis_y_max)  # Trục Y
 
-line1(*user_input, 1)
+draw(*user_input, 3)
 plt.show()
 

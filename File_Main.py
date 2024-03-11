@@ -8,9 +8,9 @@ def draw_1_cham_gach(x1,y1,x2,y2):
     Dy = y2 - y1
     
     count0, count1, count2 = 0 , 0 , 0
-    count0_max, count1_max, count2_max= 7 , 2 , 4
+    count0_max, count1_max, count2_max= 7 , 3 , 1
     
-    if (Dx>Dy):
+    if (abs(Dx)>abs(Dy)):
         d  = 2*Dy -   Dx
         D1 = 2*Dy - 2*Dx 
         D2 = 2*Dy
@@ -24,7 +24,10 @@ def draw_1_cham_gach(x1,y1,x2,y2):
                     y+=1
             else:
                 d += D2
-            x+=1
+            if x1<x2:
+                x+=1
+            else:
+                x-=1
             if count0!=count0_max:
                 plt.plot([X,x],[Y,y], linestyle='solid', color='c')
                 count0+=1
@@ -34,41 +37,71 @@ def draw_1_cham_gach(x1,y1,x2,y2):
             elif count2!=count2_max:
                 plt.plot([X,x],[Y,y], linestyle='solid', color='c')
                 count2+=1
-                count1=0
-            else:
-                count0=0
-                count1=0
-                count2=0
-    else:
-        d  = 2*Dx -   Dy
-        D1 = 2*Dx - 2*Dy 
-        D2 = 2*Dx
-        while y < y2:           
-            X,Y=x,y
-            if d < 0:   
-                d += D2               
-            else:
-                d += D1
-                if(x1>x2):
-                    x-=1
-                else:
-                    x+=1
-            y+=1
-            if count0!=count0_max:
-                plt.plot([X,x],[Y,y], linestyle='solid', color='c')
-                count0+=1
-            elif count1!=count1_max:
-                plt.plot([X,x],[Y,y], linestyle='none')
-                count1+=1
-            elif count2!=count2_max:
-                plt.plot([X,x],[Y,y], linestyle='solid', color='b')
-                count2+=1
-                if count2 == count2_max:
+                if count2==count2_max:
                     count1=0
             else:
                 count0=0
                 count1=0
                 count2=0
+    else:
+        print('here')
+        d  = 2*Dx -   Dy
+        D1 = 2*Dx - 2*Dy 
+        D2 = 2*Dx
+        if y<y2:
+            while y < y2:           
+                X,Y=x,y
+                if d < 0:   
+                    d += D2               
+                else:
+                    d += D1
+                    if(x1>x2):
+                        x-=1
+                    else:
+                        x+=1
+                y=y+1
+                if count0!=count0_max:
+                    plt.plot([X,x],[Y,y], linestyle='solid', color='c')
+                    count0+=1
+                elif count1!=count1_max:
+                    plt.plot([X,x],[Y,y], linestyle='none')
+                    count1+=1
+                elif count2!=count2_max:
+                    plt.plot([X,x],[Y,y], linestyle='solid', color='b')
+                    count2+=1
+                if count2 == count2_max:
+                    count1=0
+                else:
+                    count0=0
+                    count1=0
+                    count2=0
+        else:
+            while y > y2:           
+                X,Y=x,y
+                if d < 0:   
+                    d += D2               
+                else:
+                    d += D1
+                    if(x1>x2):
+                        x-=1
+                    else:
+                        x+=1
+                y=y-1
+                if count0!=count0_max:
+                    plt.plot([X,x],[Y,y], linestyle='solid', color='c')
+                    count0+=1
+                elif count1!=count1_max:
+                    plt.plot([X,x],[Y,y], linestyle='none')
+                    count1+=1
+                elif count2!=count2_max:
+                    plt.plot([X,x],[Y,y], linestyle='solid', color='b')
+                    count2+=1
+                if count2 == count2_max:
+                    count1=0
+                else:
+                    count0=0
+                    count1=0
+                    count2=0
 
 #Vẽ nét đứt
 def draw_net_dut(x1,y1,x2,y2):
@@ -135,8 +168,8 @@ def draw_2_cham_gach(x1,y1,x2,y2):
     Dy = y2 - y1
     
     #____---__--__---____
-    count0, count1, count2, count3 = 0 , 0 , 0
-    count0_max, count1_max, count2_max, count3_max= 7 , 2 , 4, 3
+    count0, count1, count2, count3 = 0, 0, 0, 0
+    count0_max, count1_max, count2_max, count3_max= 7 , 4 , 1, 2
     
     if (Dx>Dy):
         d  = 2*Dy -   Dx
@@ -160,7 +193,7 @@ def draw_2_cham_gach(x1,y1,x2,y2):
                 plt.plot([X,x],[Y,y], linestyle='none')
                 count1+=1
             elif count2!=count2_max:
-                plt.plot([X,x],[Y,y], linestyle='solid', color='r')
+                plt.plot([X,x],[Y,y], linestyle='solid', color='c')
                 count2+=1
                 if count3==count3_max and count2==count2_max:
                     count1=0
@@ -173,6 +206,7 @@ def draw_2_cham_gach(x1,y1,x2,y2):
                 count0=0
                 count1=0
                 count2=0
+                count3=0
     else:
         d  = 2*Dx -   Dy
         D1 = 2*Dx - 2*Dy 
@@ -214,6 +248,8 @@ def line1(x1, y1, x2, y2, choice):
         x_swap, y_swap=x1,y1
         x1,y1=x2,y2
         x2,y2=x_swap,y_swap
+
+    print(x1,y1,x2,y2,abs(x1-x2),abs(y1-y2))
 
     if choice == 1:
         draw_net_dut(x1,y1,x2,y2)
@@ -292,18 +328,15 @@ plt.title('Hệ tọa độ 2D')
 
 
 def get_user_input():
-    x1, y1 = 20 , 50
-    x2, y2 = 100, 50
+    x1, y1 = 100, 450
+    x2, y2 = 150, 240
     return x1, y1, x2, y2
 # Get user input
 user_input = get_user_input()
-
 axis_x=(max(user_input[0],user_input[2]))
 axis_y=(max(user_input[1],user_input[3]))
 axis_x_max, axis_x_min=min(-10,int(-1.3*axis_x)), max(10,int(1.3*axis_x))
 axis_y_max, axis_y_min=min(-10,int(-1.3*axis_y)), max(10,int(1.3*axis_y))
-
-
 axis(ax, axis_x_min, 0, axis_x_max, 0)  # Trục X
 axis(ax, 0, axis_y_min, 0, axis_y_max)  # Trục Y
 

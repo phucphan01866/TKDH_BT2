@@ -100,7 +100,9 @@ def draw(x1,y1,x2,y2,choice):
                d += D2
             x+=x_change
             #----___----
-            if choice==1:
+            if choice==0:
+                plt.plot([X,x],[Y,y], linestyle='solid', color='c')
+            elif choice==1:
                 count0, count1 = draw_net_dut(count0, count1,count0_max, count1_max, X, Y, x, y)
             elif choice==2:
                 count0, count1, count2 = draw_1_cham_gach(count0, count1, count2, count0_max, count1_max, count2_max, X, Y, x, y)

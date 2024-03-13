@@ -103,9 +103,9 @@ def draw(x1,y1,x2,y2,choice):
             if choice==1:
                 count0, count1 = draw_net_dut(count0, count1,count0_max, count1_max, X, Y, x, y)
             elif choice==2:
-                count0, count1 = draw_1_cham_gach(count0, count1, count2, count0_max, count1_max, count2_max, X, Y, x, y)
+                count0, count1, count2 = draw_1_cham_gach(count0, count1, count2, count0_max, count1_max, count2_max, X, Y, x, y)
             elif choice==3:
-                count0, count1 = draw_2_cham_gach(count0, count1, count2, count3, count0_max, count1_max, count2_max, count3_max, X, Y, x, y)
+                count0, count1, count2, count3 = draw_2_cham_gach(count0, count1, count2, count3, count0_max, count1_max, count2_max, count3_max, X, Y, x, y)
             
     else:
         d  = 2*Dx -   Dy
@@ -229,20 +229,20 @@ plt.grid(True)
 plt.title('Hệ tọa độ 2D')
 
 def get_user_input():
-    x1, y1 = 10, 50
-    x2, y2 = 100, 200
+    x1, y1 = -200, -100
+    x2, y2 = 100, -100
     return x1, y1, x2, y2
 # Get user input
 user_input = get_user_input()
-axis_x=(max(user_input[0],user_input[2]))
-axis_y=(max(user_input[1],user_input[3]))
+axis_x=(max(abs(user_input[0]),abs(user_input[2])))
+axis_y=(max(abs(user_input[1]),abs(user_input[3])))
 
 axis_x_max, axis_x_min=min(-10,int(-1.3*axis_x)), max(10,int(1.3*axis_x))
 axis_y_max, axis_y_min=min(-10,int(-1.3*axis_y)), max(10,int(1.3*axis_y))
 axis(ax, axis_x_min, 0, axis_x_max, 0)  # Trục X
 axis(ax, 0, axis_y_min, 0, axis_y_max)  # Trục Y
 
-Input_draw(*user_input, 4)
+Input_draw(*user_input, 2)
     
 plt.show()
 

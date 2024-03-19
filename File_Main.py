@@ -158,7 +158,7 @@ def draw_rect(x1,y1,x2,y2):
     
     
 #Hàm trung chuyển giữa vẽ đường thẳng và chữ nhật
-def Input_draw(x1,y1,x2,y2, choice):
+def Input_draw(x1,y1,x2,y2,choice):
     if choice < 4:
         draw(x1,y1,x2,y2,choice)
     elif choice == 4:
@@ -231,18 +231,18 @@ ax.grid(True, linestyle='--', alpha=0.7)
 plt.grid(True)
 plt.title('Hệ tọa độ 2D')
 
+# Get user input
 def get_user_input():
     x1, y1 = -200, -100
     x2, y2 = 100, -100
-    return x1, y1, x2, y2
-# Get user input
+    choice = 2
+    return x1, y1, x2, y2, choice
 user_input = get_user_input()
-choice=2
-Input_draw(*user_input, choice)
 # 1. Vẽ đường thẳng nét đứt
 # 2. Vẽ đường thẳng nét gạch chấm
 # 3. Vẽ đường thẳng nét gạch hai chấm
 # 4. Vẽ HCN
+Input_draw(*user_input)
 
 axis_x=(max(abs(user_input[0]),abs(user_input[2])))
 axis_y=(max(abs(user_input[1]),abs(user_input[3])))
